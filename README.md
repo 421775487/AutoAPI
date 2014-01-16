@@ -1,4 +1,4 @@
-bestzey
+AutoAPI
 =======
 
-this is my github. Welcome!
+支持大部分基础类型接口的自动化测试
