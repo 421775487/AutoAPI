@@ -1,0 +1,13 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-  
+
+import os  
+import logging  
+import logging.config  
+  
+LOG_FILENAME = 'logging.conf'
+os.chdir("/usr/home/zeyang/autoapi/config/")
+logging.config.fileConfig(LOG_FILENAME)
+logger = logging.getLogger("autoapi error info")
+
+#日志初始化

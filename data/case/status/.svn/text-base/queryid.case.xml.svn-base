@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<caselist>
+    <case>
+		<id>001</id>
+        <des>mid存在且合法</des>
+		<run>1</run>
+		<p value="4125898983">source</p>
+		<p value="2.00mG98WBnnqNVEfe7acc1871Kgp6XC">access_token</p>
+        <p value="AmsIVz8w2">mid</p>
+		<p value="1">type</p>
+        <wish check="id,user">{"id":"3649556778135688"}</wish>
+     </case>
+     <case>
+		<id>002</id>
+        <des>mid不存在</des>
+		<run>0</run>
+        <p value="4125898983">source</p>
+        <p value="2.00mG98WBnnqNVEfe7acc1871Kgp6XC">access_token</p>
+        <p value="A">mid</p>
+        <p value="1">type</p>
+        <wish check="">{"id":"-1"}</wish>
+     </case>
+		
+	 <!-- data prepare -->
+	 <case>
+		<id>099</id>
+	    <des>mid不存在</des>
+		<run>3</run>
+	    <p value="4125898983">source</p>
+	    <p value="2.00mG98WBnnqNVEfe7acc1871Kgp6XC">access_token</p>
+	    <p value="A">mid</p>
+	    <p value="1">type</p>
+	</case> 
+
+	<!-- data clear -->
+	<case>
+		<id>100</id>
+		<des>mid不存在</des>
+		<run>4</run>
+	    <p value="4125898983">source</p>
+	    <p value="2.00mG98WBnnqNVEfe7acc1871Kgp6XC">access_token</p>
+	    <p value="A">mid</p>
+	    <p value="1">type</p>
+	</case>
+</caselist>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<caselist>
+    <case>
+		<cid>001</cid>
+        <des>id存在且合法</des>
+        <p value="4125898983">source</p>
+        <p value="2.00mG98WBnnqNVEbede384558njAXRD">access_token</p>
+        <p value="3595062254593156">id</p>
+        <p value="1">type</p>
+		<run>1</run>
+        <wish check="">{"mid":"zDT0djgTa"}</wish>
+     </case>
+     <case>
+		<cid>002</cid>
+        <des>id不存在</des>
+        <p value="4125898983">source</p>
+        <p value="2.00mG98WBnnqNVEfe7acc1871Kgp6XC">access_token</p>
+        <p value="123321333222">id</p>
+        <p value="1">type</p>
+		<run>1</run>
+        <wish check="">{"mid":""}</wish>
+     </case>
+</caselist>

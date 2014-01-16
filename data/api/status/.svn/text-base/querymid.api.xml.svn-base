@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <api>
+        <host>api.weibo.com</host>
+        <url>/2/statuses/querymid.json</url>
+        <apiname>qureyid.json</apiname>
+        <des>通过微博(评论、私信)ID获取其MID</des>
+        <group>status</group>
+		<ip>215.215.215.215</ip>
+        <protocol>http</protocol>
+        <islogin>0</islogin>
+        <method>GET</method>     
+    </api>
+</root>       

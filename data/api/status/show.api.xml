@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <api>
+		<host>api.weibo.com</host>
+		<url>/2/users/show.json</url>
+		<apiname>show</apiname>
+        <des>根据用户ID获取用户信息</des>
+        <group>status</group>
+		<ip>255.255.255.255</ip>
+        <protocol>http</protocol>
+        <islogin>0</islogin>
+		<method>GET</method>    
+    </api>
+</root>
