@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-  
 
-import os  
+import os 
+from config import sysconfig
 import logging  
 import logging.config  
   
 LOG_FILENAME = 'logging.conf'
-os.chdir("/usr/home/zeyang/autoapi/config/")
+os.chdir(sysconfig._WORKSPACE + "/config")
 logging.config.fileConfig(LOG_FILENAME)
 logger = logging.getLogger("running error info")

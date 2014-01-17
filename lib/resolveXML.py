@@ -8,7 +8,7 @@ import deal_string
 
 from xml.dom import minidom
 from config import sysconfig
-from my_log import *
+import my_log
 
 class xmlObject():
 	def __init__(self):
@@ -29,23 +29,22 @@ class xmlObject():
 			return node.getElementsByTagName(name)
 		else: ''
 
-	def get_xml_data(self, group, filename):
-		try:
-			doc = minidom.parse(filename)
-			root = doc.documentElement
-		except Exception, e:
-			print "Resolve XML file ERROR, please check your XML format !"
-			logger.error(e)
-			
+	def get_xml_data(self, filename, kind):
 		# 默认存在API组配置,否则异常
 		try:
-			p = sysconfig.apiRef[group]
+			p = sysconfig.apiRef[kind]
 		except Exception, e:
 			print "No group config, please check your sysconfig.py !"
-			logger.error(e)
+			my_log.logger.error(e)
 
 		if 'api.xml' in filename:
 			os.chdir(p['apipath'])
+			try:
+				doc = minidom.parse(filename)
+				root = doc.documentElement
+			except Exception, e:
+				print "Resolve XML file ERROR, please check your XML format !"
+				my_loglogger.error(e)
 
 			api_host = self.get_xmlnode(root, 'host')
 			api_url = self.get_xmlnode(root, 'url')
@@ -76,6 +75,12 @@ class xmlObject():
 
 		elif 'case.xml' in filename:
 			os.chdir(p['casepath'])
+			try:
+				doc = minidom.parse(filename)
+				root = doc.documentElement
+			except Exception, e:
+				print "Resolve XML file ERROR, please check your XML format !"
+				my_loglogger.error(e)
 
 			case_nodes = self.get_xmlnode(root,'case')
 			case_list = []
@@ -90,21 +95,24 @@ class xmlObject():
 				case_wish_v = self.get_nodevalue(case_wish[0])
 				case_run_v = self.get_nodevalue(case_run[0])
 				case_cid_v = self.get_nodevalue(case_cid[0])
-					# expect value must be format before U use.
+					
 				if case_wish_v[:1] == '{':
 					b = deal_string.re_str(case_wish_v)
 					a = eval(b)
 				else:
 					a = case_wish_v
 				case_check_v = self.get_attrvalue(case_wish[0], 'check')
-					# get the param list
 				p_nodes = self.get_xmlnode(c, 'p')
-					# get need run case
 				p_list = {}
 				for p in p_nodes:
 					p_key = self.get_nodevalue(p)
-					p_value = self.get_attrvalue(p, 'value')
-					p_list[p_key] = p_value
+					if p_key == 'SOURCE':
+						p_list['source'] = sysconfig.SOURCE
+					elif p_key == "ACCESS_TOKEN":
+						P_list['access_token'] = sysconfig.ACCESS_TOKEN
+					else:
+						p_value = self.get_attrvalue(p, 'value')
+						p_list[p_key] = p_value
 				if case_check_v == '':
 					list['des'],list['wish'],list['params'],list['all_param'],list['check'], list['run'], list['cid']= \
 					case_des_v, a, p_list, self.format_param(p_list), 'no', case_run_v, case_cid_v
@@ -115,7 +123,13 @@ class xmlObject():
 			return case_list
 
 		else:
-			os.chdir(_PLANPATH)
+			os.chdir(sysconfig._PLANPATH)
+			try:
+				doc = minidom.parse(filename)
+				root = doc.documentElement
+			except Exception, e:
+				print "Resolve XML file ERROR, please check your XML format !"
+				my_loglogger.error(e)
 
 			plan_person = self.get_xmlnode(root, 'person')
 			plan_times = self.get_xmlnode(root, 'times')

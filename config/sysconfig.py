@@ -6,8 +6,8 @@ import os
 _WORKSPACE = os.getcwd()[:-7]
 
 # test app information.
-_SOURCE = "4125898983"
-_ACCESS_TOKEN = "2.00mG98WBnnqNVEfe7acc1871Kgp6XC"
+SOURCE = "4125898983"
+ACCESS_TOKEN = "2.00mG98WBnnqNVEfe7acc1871Kgp6XC"
 
 # api reference information
 apiRef = {

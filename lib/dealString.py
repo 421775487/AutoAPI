@@ -14,7 +14,7 @@ def format_check(str):
 # newv : the real value - string format
 # value : check point - list
 # return TRUE or FALSE
-def compare_value(oldv, newv ,check=None):
+def compare_value(oldv, newv ,check = None):
 	result = {}
 	try:
 		expect_value = oldv
@@ -23,7 +23,6 @@ def compare_value(oldv, newv ,check=None):
 		print 'Get expect value errro.'
 		logger.error("Get expect value errro.")
 		exit()
-	# value == ""
 	if value == "":
 		for key in expect_value.keys():
 			if isinstance(expect_value[key], dict): # 检查该key对应的value是否为dict类型
