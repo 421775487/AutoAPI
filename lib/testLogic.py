@@ -1,44 +1,50 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
+# Author：zeyang@staff.sina.com.cn
+
+ALL_API_NUM = 0
+ALL_CASE_NUM = 0
 
 import resolveXML
+import time
 
-# before the test running 
-# resolve the api.xml and case.xml
-# data prepare
+# data prepare, get the test infomation
 def before_test():
 	""" 获取测试计划 """
-	print "-" * 30 + "Test Start" + "-" * 30
+	global ALL_API_NUM
+	global ALL_CASE_NUM
+	
 	try:
 		plan_filename = sys.argv[1]
-	except IndexError,e:
-		print "there is no test plan. stop running ..."
-		logger.error(e)
+	except IndexError, e:
+		print "No test plan. stop running ..."
 		exit()
+
 	xml = resolveXML.xmlObject()
 	plan = xml.get_xml_data(plan_filename)
-	print "待测接口列表:" + str(plan['api'])
+	print "待测接口列表: " + str(plan['api'])
 	
+	ALL_API_NUM = len(plan['api'])
+
 	for n in range(len(plan['api'])):
-		os.chdir("/usr/home/zeyang/autoapi/data/api/status/")
-
-		# 获取api的配置信息
-		api_xml = xmlObject()
+		# get testing api infomatino
 		api_filename = plan['api'][n] + ".api.xml"
-		api = api_xml.get_xml_data(api_filename)
+		api = xml.get_xml_data(api_filename)
 
-		# 获取case的配置信息
-		os.chdir("/usr/home/zeyang/autoapi/data/case/status/")
-		case_xml = xmlObject()
+		# get testing case infomation
 		case_filename = plan['api'][n] + ".case.xml"
-		cases = case_xml.get_xml_data(case_filename)
-		to_run_case = pick_run_case(cases)
-		print str(n+1) + ". " + plan['api'][n] + " ----- case num:" + str(len(to_run_case))
+		cases = xml.get_xml_data(case_filename)
+		running_case = select_run_case(cases)
+
+		ALL_CASE_NUM += len(running_case)
+
+		print plan['api'][n] + " 测试用例数:" + str(len(running_case))
 	
-		testQ = TestQ(plan['api'][n], to_run_case)
+		testQ = TestQ(plan['api'][n], running_case)
 		testQ.start()
-		time.sleep(10)
+		time.sleep(1)
 		testQ.stop
+
 		print str(plan['api'][n]) + "执行完成。"
 
 # simple run one case
@@ -113,8 +119,8 @@ def run_test(api, cases):
 
 
 
-# pick up all the running case.
-def pick_run_case(case):
+# pick up all the running case. 
+def select_run_case(case):
 	''' pick up the running case while run = 1 '''
 	run_case = []
 	for n in range(len(case)):
@@ -123,3 +129,10 @@ def pick_run_case(case):
 		else:
 			continue
 	return run_case
+
+# print test infomation
+def print_info():
+	global start_time
+	global end_time
+	import time
+	start_time = time.ctime()

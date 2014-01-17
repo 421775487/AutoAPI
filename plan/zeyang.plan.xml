@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <plan>
 	<person>zeyang</person>
-	<times>#</times>
+	<times>1</times>
 	<api group="status">querymid</api>
 	<api group="status">show</api>
 </plan>

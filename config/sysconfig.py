@@ -11,18 +11,21 @@ _ACCESS_TOKEN = "2.00mG98WBnnqNVEfe7acc1871Kgp6XC"
 
 # api reference information
 apiRef = {
-'status':\
-	{'apis':['queryid','querymid','show'],\
-	'name':'微博组接口',\
-	'path':_WORKSPACE + '/data/api/status'},
-'open':\
+'status':
+	{'apis': ['queryid','querymid','show'],
+	'name': '微博组接口',
+	'apipath': _WORKSPACE + '/data/api/status',
+	'casepath': _WORKSPACE + '/data/case/status'},
+'open':
+	{'apis': [],
+	'name': '平台组接口',
+	'apipath': _WORKSPACE + '/data/api/open',
+	'casepath': _WORKSPACE + '/data/case/open'},
+'oauth':
 	{'apis':[],
-	'name':'平台组接口',
-	'path':_WORKSPACE + '/data/api/open'},
-'oauth':\
-	{'apis':[],\
-	'name':'授权组接口',\
-	'path':_WORKSPACE + '/data/api/oauth'}
+	'name':'授权组接口',
+	'apipath':_WORKSPACE + '/data/api/oauth',
+	'casepath': _WORKSPACE + '/data/case/oauth'}
 }
 
 # work dict path
