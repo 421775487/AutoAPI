@@ -3,7 +3,7 @@
 # split the value check
 
 import string
-from my_log import * 
+import my_log
 
 def format_check(str):
 	value = str.split(',')
@@ -14,24 +14,23 @@ def format_check(str):
 # newv : the real value - string format
 # value : check point - list
 # return TRUE or FALSE
-def compare_value(oldv, newv ,check = None):
-	result = {}
-	try:
-		expect_value = oldv
-		real_value = eval(newv)
-	except:
-		print 'Get expect value errro.'
-		logger.error("Get expect value errro.")
-		exit()
-	if value == "":
+def compare_value(oldv, newv, check=""):
+	expect_value = oldv
+	real_value = newv
+	if check == "":
 		for key in expect_value.keys():
-			if isinstance(expect_value[key], dict): # 检查该key对应的value是否为dict类型
-				compare_value(expect_value[key], real_value[key])
+			if key not in real_value.keys():
+				return False
 			else:
-				if expect_value[key] == real_value[key]:
-					return True
+				if isinstance(expect_value[key], dict): # 检查该key对应的value是否为dict类型
+					compare_value(expect_value[key], real_value[key])
 				else:
-					return False 
+					if expect_value[key] == real_value[key]:
+						continue
+					else:
+						return False
+		return True	
+	# 暂不考虑局部校验逻辑
 	else:
 		pass
 

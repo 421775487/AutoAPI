@@ -2,6 +2,7 @@
 # -*- coding:utf-8 -*-
 # Author：zeyang@staff.sina.com.cn
 
+import sys
 import time
 import resolveXML
 import multiThread
@@ -11,7 +12,7 @@ ALL_API_NUM = 0
 ALL_CASE_NUM = 0
 
 # data prepare, get the test infomation
-def before_test():
+def test_running():
 	""" 获取测试计划 """
 	global ALL_API_NUM
 	global ALL_CASE_NUM
@@ -28,26 +29,29 @@ def before_test():
 	
 	ALL_API_NUM = len(plan['api'])
 
+	testQ = []
 	for n in range(len(plan['api'])):
+		group = plan['group'][n]
 		# get testing api infomatino
 		api_filename = plan['api'][n] + ".api.xml"
-		api = xml.get_xml_data(api_filename)
+		api = xml.get_xml_data(api_filename, group)
 
 		# get testing case infomation
 		case_filename = plan['api'][n] + ".case.xml"
-		cases = xml.get_xml_data(case_filename)
+		cases = xml.get_xml_data(case_filename, group)
 		running_case = select_run_case(cases)
 
 		ALL_CASE_NUM += len(running_case)
 
 		# muilt thread
-		testQ = multiThread.TestQ(plan['api'][n], running_case)
-		testQ.start()
-		time.sleep(2)
-		testQ.stop
+		# put into thread group
+		testQ.append(multiThread.TestQ(api, running_case))
 
-		print str(plan['api'][n]) + "执行完成。"
-		
+	for i in range(len(testQ)):
+		testQ[i].start()
+
+	for i in range(len(testQ)):
+		testQ[i].stop()
 
 # simple run one case
 # param  : string(apiname), string(caseid)
@@ -58,8 +62,8 @@ def one_case_run(apiname, caseid):
 	apifile = apiname + ".api.xml"
 	casefile = apiname + ".case.xml"
 
-	api = xml.get_xml_data(apifile, 'api')
-	allcase = xml.get_xml_data(casefile, 'case')
+	api = xml.get_xml_data(apifile, group)
+	allcase = xml.get_xml_data(casefile, group)
 
 	case = {}
 	for i in range(len(allcase)):
@@ -89,11 +93,3 @@ def select_run_case(case):
 		else:
 			continue
 	return run_case
-
-
-# print test infomation
-def print_info():
-	global start_time
-	global end_time
-	import time
-	start_time = time.ctime()

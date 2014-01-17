@@ -4,7 +4,7 @@
 
 import sys
 import os
-import deal_string
+import dealString
 
 from xml.dom import minidom
 from config import sysconfig
@@ -29,16 +29,18 @@ class xmlObject():
 			return node.getElementsByTagName(name)
 		else: ''
 
-	def get_xml_data(self, filename, kind):
-		# 默认存在API组配置,否则异常
-		try:
-			p = sysconfig.apiRef[kind]
-		except Exception, e:
-			print "No group config, please check your sysconfig.py !"
-			my_log.logger.error(e)
+	def get_xml_data(self, filename, kind = None):
+		
 
 		if 'api.xml' in filename:
+			# 默认存在API组配置,否则异常
+			try:
+				p = sysconfig.apiRef[kind]
+			except Exception, e:
+				print "No group config, please check your sysconfig.py !"
+				my_log.logger.error(e)
 			os.chdir(p['apipath'])
+
 			try:
 				doc = minidom.parse(filename)
 				root = doc.documentElement
@@ -74,6 +76,11 @@ class xmlObject():
 			return api_list
 
 		elif 'case.xml' in filename:
+			try:
+				p = sysconfig.apiRef[kind]
+			except Exception, e:
+				print "No group config, please check your sysconfig.py !"
+				my_log.logger.error(e)
 			os.chdir(p['casepath'])
 			try:
 				doc = minidom.parse(filename)
@@ -97,7 +104,7 @@ class xmlObject():
 				case_cid_v = self.get_nodevalue(case_cid[0])
 					
 				if case_wish_v[:1] == '{':
-					b = deal_string.re_str(case_wish_v)
+					b = dealString.re_str(case_wish_v)
 					a = eval(b)
 				else:
 					a = case_wish_v
@@ -138,17 +145,17 @@ class xmlObject():
 			plan_times_v = self.get_nodevalue(plan_times[0])
 
 			plan = {}
-			gourp_list = []
+			group_list = []
 			plan_api_list = []
 
 			plan_api = self.get_xmlnode(root,'api')
 			for p_api in plan_api:
 				api = self.get_nodevalue(p_api)
-				group = self.get_attrvalue(api, 'group')
+				group = self.get_attrvalue(p_api, 'group')
 				group_list.append(group)
 				plan_api_list.append(api)
 
-			plan['person'], plan['times'], plan['api'], plan['gourp'] = \
+			plan['person'], plan['times'], plan['api'], plan['group'] = \
 			plan_person_v, plan_times_v, plan_api_list, group_list
 			return plan
 

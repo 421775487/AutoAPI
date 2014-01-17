@@ -3,7 +3,7 @@
 # time:   2013-12-12
 
 import os
-_WORKSPACE = os.getcwd()[:-7]
+_WORKSPACE = os.getcwd()
 
 # test app information.
 SOURCE = "4125898983"

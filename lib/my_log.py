@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-  
 
 import os 
-from config import sysconfig
 import logging  
-import logging.config  
+import logging.config 
+
+from config import sysconfig 
   
 LOG_FILENAME = 'logging.conf'
 os.chdir(sysconfig._WORKSPACE + "/config")
