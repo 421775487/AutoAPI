@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
-# Author：zeyang@staff.sina.com.cn
+# Author：heulizeyang@gmail.com
 
 import sys
 import time

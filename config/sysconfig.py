@@ -1,5 +1,5 @@
 # -*-coding:utf-8 -*-
-# author: zeyang@staff.sina.com.cn
+# author: heulizeyang@gmail.com
 # time:   2013-12-12
 
 import os
