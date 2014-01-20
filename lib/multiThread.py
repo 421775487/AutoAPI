@@ -9,6 +9,9 @@ import dealString
 import httplib
 import testLogic
 
+RUN_SUCCESS = 0
+RUN_FAILED = 0
+
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
@@ -20,7 +23,9 @@ class TestQ(threading.Thread):
 	
 	def run(self):
 		for n in range(len(self.cases)):
-			print "\t执行" + self.api['apiname'] + "接口测试用例" + self.cases[n]['cid']
+			global RUN_SUCCESS
+			global RUN_FAILED
+			#print "\t执行" + self.api['apiname'] + "接口测试用例" + self.cases[n]['cid']
 
 			# http connection
 			# 后期可能会考虑用urllib2替换httplib
@@ -71,8 +76,10 @@ class TestQ(threading.Thread):
 			#	print " 校验参数:" + str(check_param)
 			compare_res = dealString.compare_value(depend_expect, now_res)
 			if compare_res:
+				RUN_SUCCESS += 1
 				print "\t" + self.api['apiname'] + "接口用例" + self.cases[n]['des'] + "测试通过"
 			else:
+				RUN_FAILED += 1
 				print "\t" + self.api['apiname'] + "接口用例" + self.cases[n]['des'] + "测试不通过"
 
 	# thread stop

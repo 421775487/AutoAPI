@@ -2,7 +2,6 @@
 # -*- coding:utf-8 -*-
 # Author:heulizeyang@gmail.com
 
-
 import os
 import sys
 from lib import testLogic

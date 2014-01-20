@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
 # Author：heulizeyang@gmail.com
-
+from __future__ import division
 import sys
 import time
 import resolveXML
@@ -17,6 +17,8 @@ def test_running():
 	global ALL_API_NUM
 	global ALL_CASE_NUM
 	
+	autoapi_start = time.time()
+
 	try:
 		plan_filename = sys.argv[1]
 	except IndexError, e:
@@ -41,17 +43,38 @@ def test_running():
 		cases = xml.get_xml_data(case_filename, group)
 		running_case = select_run_case(cases)
 
+		# 执行用例总数自增
 		ALL_CASE_NUM += len(running_case)
 
 		# muilt thread
 		# put into thread group
 		testQ.append(multiThread.TestQ(api, running_case))
 
+	start_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 	for i in range(len(testQ)):
 		testQ[i].start()
-
+		
 	for i in range(len(testQ)):
 		testQ[i].stop()
+	end_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+	time.sleep(0.9)
+
+	autoapi_end = time.time()
+	exe_time = (autoapi_end - autoapi_start)*1000 - 900
+
+	print "\n" + "="*30
+	print "测试开始时间:" + start_time
+	print "测试结束时间:" + end_time
+	print "用例总数:" + str(ALL_CASE_NUM)
+	print "测试通过:" + str(multiThread.RUN_SUCCESS)
+	print "测试不通过:" + str(multiThread.RUN_FAILED)
+
+	succ_rate = multiThread.RUN_SUCCESS/ALL_CASE_NUM*100
+	fail_rate = multiThread.RUN_FAILED/ALL_CASE_NUM*100
+
+	print "成功率:%.2f%%"  %succ_rate
+	print "失败率:%.2f%%"  %fail_rate
+	print "程序运行时间: %.2f" %exe_time + "ms"
 
 # simple run one case
 # param  : string(apiname), string(caseid)
@@ -93,3 +116,7 @@ def select_run_case(case):
 		else:
 			continue
 	return run_case
+
+# testing report 
+def test_result():
+	return

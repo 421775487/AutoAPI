@@ -172,4 +172,4 @@ class xmlObject():
 			return pstr[:-1]
 		except:
 			print 'format the case params error.'
-			logger.error('when deal the case.xml, format params occur error.')
+			my_log.logger.error('when deal the case.xml, format params occur error.')

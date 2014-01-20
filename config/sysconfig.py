@@ -13,17 +13,17 @@ ACCESS_TOKEN = "2.00mG98WBnnqNVEfe7acc1871Kgp6XC"
 apiRef = {
 'status':
 	{'apis': ['queryid','querymid','show'],
-	'name': '微博组接口',
+	'name': '1组接口',
 	'apipath': _WORKSPACE + '/data/api/status',
 	'casepath': _WORKSPACE + '/data/case/status'},
 'open':
 	{'apis': [],
-	'name': '平台组接口',
+	'name': '2组接口',
 	'apipath': _WORKSPACE + '/data/api/open',
 	'casepath': _WORKSPACE + '/data/case/open'},
 'oauth':
 	{'apis':[],
-	'name':'授权组接口',
+	'name':'3组接口',
 	'apipath':_WORKSPACE + '/data/api/oauth',
 	'casepath': _WORKSPACE + '/data/case/oauth'}
 }
