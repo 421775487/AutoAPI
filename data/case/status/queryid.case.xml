@@ -9,10 +9,10 @@
         <p value="AmsIVz">mid</p>
 		<p value="1">type</p>
         <wish check="">api{"queryid":"099"}</wish>
-     </case>
+    </case>
 
-	 <!-- data -->
-     <case>
+	<!-- data -->
+    <case>
 		<cid>002</cid>
         <des>mid不存在</des>
 		<run>0</run>
@@ -21,7 +21,7 @@
         <p value="A">mid</p>
         <p value="1">type</p>
         <wish check="">{"id":"1231231232ddd"}</wish>
-     </case>
+    </case>
 
 	<case>
         <cid>003</cid>
@@ -34,8 +34,8 @@
 		<wish check="">{"queryid":"002"}</wish>
 	</case>
 		
-	 <!-- data prepare -->
-	 <case>
+	<!-- data prepare -->
+	<case>
 		<cid>099</cid>
 	    <des>mid不存在</des>
 		<run>3</run>
@@ -44,9 +44,21 @@
 	    <p value="A">mid</p>
 	    <p value="1">type</p>
 		<wish check="">{}</wish>
-	</case> 
+	</case>
 
 	<!-- data clear -->
+	<case>
+		<cid>100</cid>
+		<des>mid不存在</des>
+		<run>4</run>
+	    <p value="4125898983">source</p>
+	    <p value="2.00mG98WBnnqNVEfe7acc1871Kgp6XC">access_token</p>
+	    <p value="A">mid</p>
+	    <p value="1">type</p>
+	    <wish check="">{}</wish>
+	</case>
+
+	<!-- 用例中某个参数值依赖于某个接口返回数据中的某个字段，它是一个变化的值 -->
 	<case>
 		<cid>100</cid>
 		<des>mid不存在</des>

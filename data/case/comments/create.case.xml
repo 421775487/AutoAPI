@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<caselist>
+    <case>
+		<cid>100</cid>
+		<des>评论一条正常的微博</des>
+		<run>1</run>
+		<before><api>status,update,300,id</api></before>
+		<p value="4125898983">source</p>
+        <p value="2.00mG98WBnnqNVEbede384558njAXRD">access_token</p>
+        <p value="justtest">comment</p>
+        <p value="needdata_id">id</p>
+        <!-- 只校验部分字段值 -->
+        <wish check="">par{"text":"justtest"}</wish>
+        <!-- data clear -->
+        <after><api>status,destory,700,needdata_id</api></after>
+	</case>
+</caselist>

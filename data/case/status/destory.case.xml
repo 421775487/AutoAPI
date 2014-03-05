@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<caselist>
+	<!-- 用作数据清理的CASE，RUN=7，ID700 -->
+    <case>
+		<cid>700</cid>
+        <des>删除一条正常的微博</des>
+        <run>7</run>
+        <before><api></api></before>
+        <p value="4125898983">source</p>
+        <p value="2.00mG98WBnnqNVEbede384558njAXRD">access_token</p>
+        <p value="needdata_id">id</p>
+        <after><api></api></after>
+    </case>
+</caselist>

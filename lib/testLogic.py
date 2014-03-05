@@ -1,12 +1,16 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
 # Author：heulizeyang@gmail.com
+
 from __future__ import division
 import sys
 import time
+import urllib
+import my_log
 import resolveXML
 import multiThread
 import dealString
+import httplib
 
 ALL_API_NUM = 0
 ALL_CASE_NUM = 0
@@ -18,7 +22,6 @@ def test_running():
 	global ALL_CASE_NUM
 	
 	autoapi_start = time.time()
-
 	try:
 		plan_filename = sys.argv[1]
 	except IndexError, e:
@@ -37,11 +40,16 @@ def test_running():
 		# get testing api infomatino
 		api_filename = plan['api'][n] + ".api.xml"
 		api = xml.get_xml_data(api_filename, group)
+		# 输出debug信息,可注释
+		my_log.logger.info(api_filename + "解析成功...")
 
 		# get testing case infomation
 		case_filename = plan['api'][n] + ".case.xml"
 		cases = xml.get_xml_data(case_filename, group)
+		my_log.logger.info(case_filename + "解析成功...")
+		
 		running_case = select_run_case(cases)
+		
 
 		# 执行用例总数自增
 		ALL_CASE_NUM += len(running_case)
@@ -79,12 +87,10 @@ def test_running():
 # simple run one case
 # param  : string(apiname), string(caseid)
 # return : re_str(res)
-def one_case_run(apiname, caseid):
-	xml = xmlObject()
-
+def one_case_run(group, apiname, caseid):
+	xml = resolveXML.xmlObject()
 	apifile = apiname + ".api.xml"
 	casefile = apiname + ".case.xml"
-
 	api = xml.get_xml_data(apifile, group)
 	allcase = xml.get_xml_data(casefile, group)
 
@@ -99,8 +105,10 @@ def one_case_run(apiname, caseid):
 		conn = httplib.HTTPConnection(api['host'])
 	else:
 		conn = httplib.HTTPSConnection(api['host'])
-	apiUrl = api['url'] + "?" + case['all_param']
-	conn.request(api['method'], apiUrl)
+	params = urllib.urlencode(case['params'])
+	headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"}
+	apiUrl = api['url']
+	conn.request(api['method'], apiUrl, params, headers)
 	backinfo = conn.getresponse()
 	res = backinfo.read()
 	return dealString.re_str(res)
@@ -117,6 +125,47 @@ def select_run_case(case):
 			continue
 	return run_case
 
-# testing report 
+# testing report
 def test_result():
+	return
+
+# 处理参数依赖中参数格式
+def get_param(param, res):
+	key = param[0]
+	if key in res.keys():
+		if len(param) == 1:
+			return res[key]
+		else:
+			param.remove(param[0])
+			get_param(param, res[key])
+	else:
+		print "接口执行失败"
+		exit()
+
+# 接口依赖前的接口执行和参数处理
+# info为，号分割的字符串
+def before_case_run(info):
+	while info != None:
+		beforeInfo = dealString.format_check(info)
+		group = beforeInfo[0]
+		api = beforeInfo[1]
+		caseid = beforeInfo[2]
+		if len(info) == 3:
+			one_case_run(group, api, caseid)
+			return
+		# 长度为4，需要考虑参数依赖
+		else:
+			param = dealString.format_str(beforeInfo[3])
+			maxlen = len(param)
+			paramString = "needdata_" + param[maxlen-1]
+			result = one_case_run(group, api, caseid)
+			# print result
+			res = {}
+			res[paramString] = get_param(param, eval(result))
+			# print res
+			# {u'needdata_id': 3680080389412734}
+			return res
+
+# 在case中查找和替换
+def set_file(case, keyparam):
 	return

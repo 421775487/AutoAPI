@@ -5,8 +5,19 @@
 import string
 import my_log
 
+# return list
 def format_check(str):
 	value = str.split(',')
+	return value
+
+def com_string(list):
+	for i in range(len(list)):
+		list[i] = list[i] + ","
+		res += list[i]
+	return res[:-1]
+
+def format_str(str):
+	value = str.split('-')
 	return value
 
 # compare the expect value with the real value
@@ -18,11 +29,12 @@ def compare_value(oldv, newv, check=""):
 	expect_value = oldv
 	real_value = newv
 	if check == "":
-		for key in expect_value.keys():
+		for key in expect_value.keys(): 
 			if key not in real_value.keys():
 				return False
 			else:
-				if isinstance(expect_value[key], dict): # 检查该key对应的value是否为dict类型
+				# 检查该key对应的value是否为dict类型
+				if isinstance(expect_value[key], dict):
 					compare_value(expect_value[key], real_value[key])
 				else:
 					if expect_value[key] == real_value[key]:
@@ -41,8 +53,7 @@ def re_str(str):
 	''' resolve string '''
 	try:
 		str = list(str)
-		length = len(str)
-		for n in range(length):
+		for n in range(len(str)):
 			if str[n] == 'f':
 				if str[n-1] == ':' and str[n+1] == 'a':
 					str[n] = 'F'
@@ -73,12 +84,12 @@ def re_str(str):
 		return str
 	except:
 		print "deal the string error."
-		logger.error('tran json into dict occur error.')
+		my_log.logger.error('tran json into dict occur error.')
 		exit()
 
 # compare all keys
 def list_all_dict(dict_a):
-	if isinstance(dict_a,dict) : #使用isinstance检测数据类型 
+	if isinstance(dict_a,dict): #使用isinstance检测数据类型 
 		for x in range(len(dict_a)):
 			temp_key = dict_a.keys()[x]
 			temp_value = dict_a[temp_key]

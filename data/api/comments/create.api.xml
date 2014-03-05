@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <api>
+        <host>api.weibo.com</host>
+        <url>/2/comments/create.json</url>
+        <apiname>create</apiname>
+        <des>评论一条微博</des>
+        <group>comments</group>
+        <ip>255.255.255.255</ip>
+        <protocol>https</protocol>
+        <islogin>0</islogin>
+        <method>POST</method>
+    </api>
+</root>

@@ -8,6 +8,7 @@ import my_log
 import dealString
 import httplib
 import testLogic
+import urllib
 
 RUN_SUCCESS = 0
 RUN_FAILED = 0
@@ -20,6 +21,7 @@ class TestQ(threading.Thread):
 		threading.Thread.__init__(self)
 		self.api = api
 		self.cases = cases
+		# testLogic.before_case_run(self.cases[0]['before'])
 	
 	def run(self):
 		for n in range(len(self.cases)):
@@ -33,13 +35,16 @@ class TestQ(threading.Thread):
 				conn = httplib.HTTPConnection(self.api['host'])
 			else:
 				conn = httplib.HTTPSConnection(self.api['host'])
+			params = urllib.urlencode(self.cases[n]['params'])
+			apiUrl = self.api['url']
+			headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"}
 			apiUrl = self.api['url'] + "?" + self.cases[n]['all_param']
-			conn.request(self.api['method'], apiUrl)
+			conn.request(self.api['method'], apiUrl, params, headers)
 			backinfo = conn.getresponse()
 			ret_res = backinfo.read()
 
 			# 接口返回的JSON数据中，存在python无法识别数据
-			# 如: php boolean  false true
+			# 如: php boolean - false true
 			# 如：返回带引号的URL
 			# 需要将false true(php常量)转化成python False True
 			try:
@@ -48,7 +53,7 @@ class TestQ(threading.Thread):
 				print "tran the RETURN (JSON format) ERROR ."
 				print self.api['apiname'] + "接口测试用例" + str(self.cases[n]['cid']) + "执行失败"
 				my_log.logger.error(e)
-				exit()
+				sys.exit()
 
 			expect = self.cases[n]['wish']
 
@@ -59,6 +64,9 @@ class TestQ(threading.Thread):
 				depend_key = depend_api.keys()
 				depend_value = depend_api.values()
 				depend_expect = testLogic.one_case_run(depend_key[0], depend_value[0])
+			elif str(expect)[:1] == 'p':
+				depend_api = eval(expect[3:])
+				depend_expect = depend_api
 			else:
 				depend_expect = self.cases[n]['wish']
 

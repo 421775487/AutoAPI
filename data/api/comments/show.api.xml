@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <api>
+        <host>api.weibo.com</host>
+        <url>/2/comments/show.json</url>
+        <apiname>show</apiname>
+        <des>获取一条微博的评论列表</des>
+        <group>comments</group>
+        <ip></ip>
+        <protocol>https</protocol>
+        <islogin>0</islogin>
+        <method>GET</method> 
+    </api>
+</root>

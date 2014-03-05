@@ -2,6 +2,7 @@
 <plan>
 	<person>zeyang</person>
 	<times>1</times>
-	<api group="status">querymid</api>
-	<api group="status">show</api>
+	<api group="comments">create</api>
+	<!--<api group="status">querymid</api>   
+	<api group="status">show</api> -->
 </plan>

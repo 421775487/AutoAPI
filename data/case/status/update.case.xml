@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<caselist>
+	<!-- 数据准备CASE的RUN=3,ID300开头 -->
+    <case>
+		<cid>300</cid>
+		<des>发布一条正常的微博</des>
+		<run>3</run>
+		<before><api>no</api></before>
+		<p value="4125898983">SOURCE</p>
+        <p value="2.00Z2lvDDnnqNVE782be0245bXtC_JC">ACCESS_TOKEN</p>
+        <p value="h332992dss33de">status</p>
+        <wish>no</wish>
+        <after><api>None</api></after>
+	</case>
+</caselist>
+

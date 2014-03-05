@@ -1,30 +1,32 @@
-
-[2014-01-17 16:00:48,911 - running error info]ERROR:  'plan' - resolveXML.py:38
-[2014-01-17 16:01:43,508 - running error info]ERROR:  'plan' - resolveXML.py:38
-[2014-01-17 16:04:05,349 - running error info]ERROR:  'plan' - resolveXML.py:38
-[2014-01-17 16:05:11,987 - running error info]ERROR:  'plan' - resolveXML.py:38
-[2014-01-17 16:05:34,967 - running error info]ERROR:  'plan' - resolveXML.py:38
-[2014-01-17 16:05:59,580 - running error info]ERROR:  'plan' - resolveXML.py:38
-[2014-01-17 16:05:59,582 - running error info]ERROR:  'api' - resolveXML.py:38
-[2014-01-17 16:06:35,935 - running error info]ERROR:  'plan' - resolveXML.py:39
-[2014-01-17 16:06:35,937 - running error info]ERROR:  'api' - resolveXML.py:39
-[2014-01-17 16:07:10,434 - running error info]ERROR:  'plan' - resolveXML.py:38
-[2014-01-17 16:07:10,436 - running error info]ERROR:  'api' - resolveXML.py:38
-[2014-01-17 16:16:18,020 - running error info]ERROR:  'plan' - resolveXML.py:38
-[2014-01-17 16:16:18,022 - running error info]ERROR:  'api' - resolveXML.py:38
-[2014-01-17 16:35:00,555 - running error info]ERROR:  Get expect value errro. - dealString.py:24
-[2014-01-17 16:35:02,608 - running error info]ERROR:  Get expect value errro. - dealString.py:24
-[2014-01-17 16:39:42,974 - running error info]ERROR:  Get expect value errro. - dealString.py:24
-[2014-01-17 16:39:45,024 - running error info]ERROR:  Get expect value errro. - dealString.py:24
-[2014-01-17 16:40:00,066 - running error info]ERROR:  Get expect value errro. - dealString.py:24
-[2014-01-17 16:40:02,017 - running error info]ERROR:  Get expect value errro. - dealString.py:24
-[2014-01-17 16:41:29,157 - running error info]ERROR:  Get expect value errro. - dealString.py:24
-[2014-01-17 16:41:31,204 - running error info]ERROR:  Get expect value errro. - dealString.py:24
-[2014-01-17 16:42:45,455 - running error info]ERROR:  Get expect value errro. - dealString.py:24
-[2014-01-17 16:42:47,064 - running error info]ERROR:  Get expect value errro. - dealString.py:24
-[2014-01-17 16:42:54,239 - running error info]ERROR:  Get expect value errro. - dealString.py:24
-[2014-01-17 16:42:56,502 - running error info]ERROR:  Get expect value errro. - dealString.py:24
-[2014-01-17 16:43:53,123 - running error info]ERROR:  Get expect value errro. - dealString.py:25
-[2014-01-17 16:43:54,667 - running error info]ERROR:  Get expect value errro. - dealString.py:25
-[2014-01-17 16:44:36,014 - running error info]ERROR:  Get expect value errro. - dealString.py:24
-[2014-01-17 16:44:38,389 - running error info]ERROR:  Get expect value errro. - dealString.py:24
+[2014-03-04 17:52:23,155 - running info]INFO:  create.api.xml解析成功... - testLogic.py:44
+[2014-03-04 17:52:38,683 - running info]INFO:  create.api.xml解析成功... - testLogic.py:44
+[2014-03-04 17:52:38,907 - running info]INFO:  create.case.xml解析成功... - testLogic.py:49
+[2014-03-04 17:57:46,687 - running info]INFO:  create.api.xml解析成功... - testLogic.py:44
+[2014-03-04 17:57:47,007 - running info]INFO:  create.case.xml解析成功... - testLogic.py:49
+[2014-03-04 17:58:11,470 - running info]INFO:  create.api.xml解析成功... - testLogic.py:44
+[2014-03-04 17:58:11,739 - running info]INFO:  create.case.xml解析成功... - testLogic.py:49
+[2014-03-04 17:58:34,478 - running info]INFO:  create.api.xml解析成功... - testLogic.py:44
+[2014-03-04 17:58:34,783 - running info]INFO:  create.case.xml解析成功... - testLogic.py:49
+[2014-03-04 17:59:16,941 - running info]INFO:  create.api.xml解析成功... - testLogic.py:44
+[2014-03-04 17:59:24,749 - running info]INFO:  create.api.xml解析成功... - testLogic.py:44
+[2014-03-04 17:59:25,164 - running info]INFO:  create.case.xml解析成功... - testLogic.py:49
+[2014-03-04 18:04:20,385 - running info]INFO:  create.api.xml解析成功... - testLogic.py:44
+[2014-03-04 18:04:20,725 - running info]INFO:  create.case.xml解析成功... - testLogic.py:49
+[2014-03-04 18:07:04,716 - running info]INFO:  create.api.xml解析成功... - testLogic.py:44
+[2014-03-04 18:07:04,980 - running info]INFO:  create.case.xml解析成功... - testLogic.py:49
+[2014-03-04 18:07:28,877 - running info]INFO:  create.api.xml解析成功... - testLogic.py:44
+[2014-03-04 18:07:29,153 - running info]INFO:  create.case.xml解析成功... - testLogic.py:49
+[2014-03-04 18:07:51,641 - running info]INFO:  create.api.xml解析成功... - testLogic.py:44
+[2014-03-04 18:07:52,394 - running info]INFO:  create.case.xml解析成功... - testLogic.py:49
+[2014-03-04 18:08:07,990 - running info]INFO:  create.api.xml解析成功... - testLogic.py:44
+[2014-03-04 18:08:08,224 - running info]INFO:  create.case.xml解析成功... - testLogic.py:49
+[2014-03-04 18:11:36,589 - running info]INFO:  create.api.xml解析成功... - testLogic.py:44
+[2014-03-04 18:11:37,114 - running info]INFO:  create.case.xml解析成功... - testLogic.py:49
+[2014-03-04 18:14:39,456 - running info]INFO:  create.api.xml解析成功... - testLogic.py:44
+[2014-03-04 18:14:39,748 - running info]INFO:  create.case.xml解析成功... - testLogic.py:49
+[2014-03-05 10:28:29,744 - running info]INFO:  create.api.xml解析成功... - testLogic.py:44
+[2014-03-05 10:28:30,036 - running info]INFO:  create.case.xml解析成功... - testLogic.py:49
+[2014-03-05 10:29:06,920 - running info]INFO:  create.api.xml解析成功... - testLogic.py:44
+[2014-03-05 10:29:07,560 - running info]INFO:  create.case.xml解析成功... - testLogic.py:49
+[2014-03-05 10:29:25,316 - running info]INFO:  create.api.xml解析成功... - testLogic.py:44
+[2014-03-05 10:29:25,598 - running info]INFO:  create.case.xml解析成功... - testLogic.py:49

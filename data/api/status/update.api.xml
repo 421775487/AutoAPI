@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <api>
+        <host>api.weibo.com</host>
+        <url>/2/statuses/update.json</url>
+        <apiname>update</apiname>
+        <des>发布一条微博</des>
+        <group>status</group>
+		<ip>215.215.215.215</ip>
+        <protocol>https</protocol>
+        <islogin>0</islogin>
+        <method>POST</method>   
+    </api>
+</root>       

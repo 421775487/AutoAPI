@@ -5,10 +5,12 @@
 import sys
 import os
 import dealString
+import testLogic
 
 from xml.dom import minidom
 from config import sysconfig
 import my_log
+import testLogic
 
 class xmlObject():
 	def __init__(self):
@@ -19,7 +21,7 @@ class xmlObject():
 			return node.getAttribute(attrname)
 		else: ''
 
-	def get_nodevalue(self, node, index = 0):
+	def get_nodevalue(self, node, index=0):
 		if node:
 			return node.childNodes[index].nodeValue
 		else: ''
@@ -29,9 +31,7 @@ class xmlObject():
 			return node.getElementsByTagName(name)
 		else: ''
 
-	def get_xml_data(self, filename, kind = None):
-		
-
+	def get_xml_data(self, filename, kind=None):
 		if 'api.xml' in filename:
 			# 默认存在API组配置,否则异常
 			try:
@@ -46,7 +46,7 @@ class xmlObject():
 				root = doc.documentElement
 			except Exception, e:
 				print "Resolve XML file ERROR, please check your XML format !"
-				my_loglogger.error(e)
+				my_log.logger.error(e)
 
 			api_host = self.get_xmlnode(root, 'host')
 			api_url = self.get_xmlnode(root, 'url')
@@ -72,7 +72,7 @@ class xmlObject():
 			api_list['host'], api_list['url'], api_list['apiname'], api_list['protocol'] \
 			, api_list['des'], api_list['islogin'], api_list['ip'], api_list['method'],  \
 			api_list['group'] = api_host_v, api_url_v, api_apiname_v, api_protocol_v,    \
-			api_des_v,api_islogin_v,api_ip_v,api_method_v,api_group_v
+			api_des_v, api_islogin_v, api_ip_v, api_method_v, api_group_v
 			return api_list
 
 		elif 'case.xml' in filename:
@@ -87,7 +87,7 @@ class xmlObject():
 				root = doc.documentElement
 			except Exception, e:
 				print "Resolve XML file ERROR, please check your XML format !"
-				my_loglogger.error(e)
+				my_log.logger.error(e)
 
 			case_nodes = self.get_xmlnode(root,'case')
 			case_list = []
@@ -97,15 +97,54 @@ class xmlObject():
 				case_wish = self.get_xmlnode(c, 'wish')
 				case_run = self.get_xmlnode(c, 'run')
 				case_cid = self.get_xmlnode(c, 'cid')
-							
+
+				# before 接口执行
+				before_nodes = self.get_xmlnode(c, 'before')
+				before_api_nodes = self.get_xmlnode(before_nodes[0], 'api')
+				b_apilist = []
+				for b_a_node in before_api_nodes:
+					before_api = self.get_nodevalue(b_a_node)
+					b_apilist.append(before_api)
+				# print b_apilist
+				if b_apilist[0] == "no":
+					iParam = {}
+				else:
+					iParam = testLogic.before_case_run(b_apilist[0])
+
+				after_nodes = self.get_xmlnode(c, 'after')
+				after_api_nodes = self.get_xmlnode(after_nodes[0], 'api')
+				after_apilist = []
+				for a_a_node in after_api_nodes:
+					after_api = self.get_nodevalue(a_a_node)
+					after_apilist.append(after_api)
+				if after_apilist[0] == "None":
+					after_api_l = ""
+				else:
+					change_value = after_apilist[0].split(",")
+					cha_key = change_value[len(change_value)-1]
+					if cha_key[9:] in iParam.keys():
+						cha_key = iParam[cha_key]
+						after_api_l = dealString.com_string(change_value)
+					else:
+						after_api_l = ""
+
 				case_des_v = self.get_nodevalue(case_des[0]).encode('utf-8')
 				case_wish_v = self.get_nodevalue(case_wish[0])
 				case_run_v = self.get_nodevalue(case_run[0])
 				case_cid_v = self.get_nodevalue(case_cid[0])
-					
+
 				if case_wish_v[:1] == '{':
 					b = dealString.re_str(case_wish_v)
 					a = eval(b)
+				elif case_wish_v[:1] == 'p':
+					keylist = eval(case_wish_v[3:])
+					for i in keylist:
+						if keylist[i] in iParam.keys():
+							keywd = keylist[i]
+							keylist[i] = iParam[keywd]
+						else:
+							a = case_wish_v
+					a = "par" + str(keylist)
 				else:
 					a = case_wish_v
 				case_check_v = self.get_attrvalue(case_wish[0], 'check')
@@ -113,22 +152,25 @@ class xmlObject():
 				p_list = {}
 				for p in p_nodes:
 					p_key = self.get_nodevalue(p)
-					if p_key == 'SOURCE':
+					if p_key == "SOURCE":
 						p_list['source'] = sysconfig.SOURCE
 					elif p_key == "ACCESS_TOKEN":
-						P_list['access_token'] = sysconfig.ACCESS_TOKEN
+						p_list['access_token'] = sysconfig.ACCESS_TOKEN
 					else:
 						p_value = self.get_attrvalue(p, 'value')
+						if p_value in iParam.keys():
+							p_value = iParam[p_value]
+						else:
+							pass
 						p_list[p_key] = p_value
 				if case_check_v == '':
-					list['des'],list['wish'],list['params'],list['all_param'],list['check'], list['run'], list['cid']= \
-					case_des_v, a, p_list, self.format_param(p_list), 'no', case_run_v, case_cid_v
+					list['des'],list['wish'],list['params'],list['all_param'],list['check'], list['run'], list['cid'], list['before'], list['after'] = \
+					case_des_v, a, p_list, self.format_param(p_list), 'no', case_run_v, case_cid_v, b_apilist, after_api_l
 				else:
-					list['des'],list['wish'],list['params'],list['all_param'],list['check'], list['run'], list['cid'] = \
-					case_des_v, a, p_list, self.format_param(p_list), case_check_v, case_run_v, case_cid_v
+					list['des'],list['wish'],list['params'],list['all_param'],list['check'], list['run'], list['cid'], list['before'], list['after'] = \
+					case_des_v, a, p_list, self.format_param(p_list), case_check_v, case_run_v, case_cid_v, b_apilist, after_api_l
 				case_list.append(list)
 			return case_list
-
 		else:
 			os.chdir(sysconfig._PLANPATH)
 			try:
@@ -136,7 +178,7 @@ class xmlObject():
 				root = doc.documentElement
 			except Exception, e:
 				print "Resolve XML file ERROR, please check your XML format !"
-				my_loglogger.error(e)
+				my_log.logger.error(e)
 
 			plan_person = self.get_xmlnode(root, 'person')
 			plan_times = self.get_xmlnode(root, 'times')
@@ -159,16 +201,15 @@ class xmlObject():
 			plan_person_v, plan_times_v, plan_api_list, group_list
 			return plan
 
-
 	# connect the params with its value 
 	# before format : a = 1, b = 2, c = 3 ...
-	# after  format : a=1&b=2&c=3...  
+	# after  format : a=1&b=2&c=3 ...  
 	def format_param(self, params):
 		''' format all the params '''
 		try:
 			pstr = ''
 			for key in params.keys():
-				pstr = pstr + str(key) + "=" + params[key] + "&"
+				pstr = pstr + str(key) + "=" + str(params[key]) + "&"
 			return pstr[:-1]
 		except:
 			print 'format the case params error.'

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<caselist>
+    <case>
+		<cid>300</cid>
+        <des>获取某条微博的评论列表</des>
+        <run>3</run>
+        <p value="4125898983">source</p>
+        <p value="2.00mG98WBnnqNVEbede384558njAXRD">access_token</p>
+        <p value="needdata_id">id</p>
+     </case>
+</caselist>
