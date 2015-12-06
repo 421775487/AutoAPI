@@ -12,3 +12,5 @@ if __name__ == "__main__":
 	testLogic.test_running()
 	# print "-" * 30 + "Test End " + "-" * 30
 	# print "全部执行完成"
+    print "heheh"
+    print "sdfasdfasdf"
